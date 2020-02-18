@@ -22,6 +22,6 @@ data class Movie(
 ): Parcelable
 {
     @IgnoredOnParcel
-    @PrimaryKey(autoGenerate = true)var uid:Int = 0
+    @PrimaryKey()var uid:Long = 0
 
 }

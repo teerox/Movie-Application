@@ -1,10 +1,7 @@
 package com.example.movieapp.model.api
 
-import com.example.movieapp.model.database.Movie
 import com.example.movieapp.model.database.MovieFeeds
-import com.example.movieapp.model.database.Result
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 

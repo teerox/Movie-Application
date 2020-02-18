@@ -1,23 +1,26 @@
 package com.example.movieapp.screens.viewpage
 
-import android.content.Context
-import android.view.View
-import android.view.ViewGroup
-import androidx.viewpager.widget.PagerAdapter
 
-class ViewPageAdaptar(private val context: Context):PagerAdapter(){
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.*
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.movieapp.screens.favouriteScreen.FavouriteScreenFragment
+import com.example.movieapp.screens.movieScreen.MovieFragment
 
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return super.instantiateItem(container, position)
+class ViewPageAdaptar(fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
+
+    override fun getItemCount(): Int {
+        return 2
     }
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun createFragment(position: Int): Fragment {
+        when(position){
+            0-> return MovieFragment()
+            1 -> return FavouriteScreenFragment()
+        }
+        return MovieFragment()
     }
-
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
 }
+
+

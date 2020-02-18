@@ -2,14 +2,9 @@ package com.example.movieapp.model.repository
 
 import android.util.Log
 import com.example.movieapp.model.api.MyRetrofitBuilder
-import com.example.movieapp.model.database.Movie
 import com.example.movieapp.model.database.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import retrofit2.Callback
-import retrofit2.await
 import java.lang.Error
 
 object ApiMovieRepository {

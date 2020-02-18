@@ -5,8 +5,8 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.*
-import kotlinx.serialization.json.*
 import kotlinx.serialization.internal.*
+import kotlin.jvm.Transient
 
 @Parcelize
 data class MovieFeeds (
@@ -56,7 +56,12 @@ data class Result (
     val overview: String,
 
     @SerializedName("release_date")
-    val releaseDate: String
+    val releaseDate: String,
+
+    @Transient
+    @SerializedName("favourite")
+    var isFavourite: Boolean
+
 ):Parcelable
 
 @Serializable(with = OriginalLanguage.Companion::class)

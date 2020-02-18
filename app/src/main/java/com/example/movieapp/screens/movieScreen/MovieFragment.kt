@@ -7,15 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.R
-import com.example.movieapp.databinding.RecyclerFragmentBinding
+import com.example.movieapp.databinding.MovieFragmentBinding
+
 import com.example.movieapp.model.database.Result
+import com.example.movieapp.screens.viewpage.FragmentMainDirections
+
 import kotlinx.coroutines.runBlocking
 
 
@@ -25,37 +26,42 @@ import kotlinx.coroutines.runBlocking
 class MovieFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var binding:RecyclerFragmentBinding
+    lateinit var binding: MovieFragmentBinding
     lateinit var adapter: MovieAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.recycler_fragment,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.movie_fragment, container, false)
+
+
         val viewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         recyclerView = binding.recyclerId
+
+
         val movies = viewModel.allMovies
 
-        adapter = MovieAdapter(this.context!!) {
-            val action = MovieFragmentDirections.actionMovieFragmentToSingleMovieFragment(it)
-            binding.root.findNavController().navigate(action)
+        adapter = MovieAdapter(this.context!!, viewModel) { Result ->
+            val action = FragmentMainDirections.actionMovieFragmentToSingleMovieFragment(Result)
+            findNavController().navigate(action)
         }
-        movies.observe(viewLifecycleOwner, Observer<List<Result>> {
+
+        movies.observeForever {
             runBlocking {
                 adapter.movieArray = it as ArrayList<Result>
-
-                Log.e("ggggg",it.toString())
+                adapter.movieArray = viewModel.mapFavourite(it) as ArrayList<Result>
+                Log.e("ggggg", it.toString())
                 adapter.notifyDataSetChanged()
+                binding.progressBar.visibility = View.GONE
             }
-        })
-
+        }
 
         recyclerView.adapter = adapter
 
         return binding.root
     }
-
 
 
 }
