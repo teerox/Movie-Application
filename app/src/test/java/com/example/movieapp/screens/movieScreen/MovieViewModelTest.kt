@@ -20,11 +20,9 @@ class MovieViewModelTest{
 
     @Mock
     lateinit var viewModel: MovieViewModel
-    lateinit var application: Application
 
     @Before
     fun setUp(){
-
         viewModel = MovieViewModel(ApplicationProvider.getApplicationContext())
     }
 

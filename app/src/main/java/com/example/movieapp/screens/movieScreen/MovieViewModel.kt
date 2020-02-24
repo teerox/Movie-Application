@@ -20,6 +20,8 @@ class MovieViewModel(application: Application) :AndroidViewModel(application){
 
     private val viewModelJob = Job()
 
+    private var callViewModel = MutableLiveData<Boolean>(false)
+
     private val viewModeScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
@@ -53,6 +55,7 @@ class MovieViewModel(application: Application) :AndroidViewModel(application){
     }
 
     fun insert(movie: Movie){
+        callViewModel.value = true
         roomDatabaseRepository.addMovietoDb(movie)
     }
 
