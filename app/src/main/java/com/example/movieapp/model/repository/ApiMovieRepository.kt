@@ -25,4 +25,18 @@ object ApiMovieRepository {
         return data
     }
 
+    suspend fun searchAllMovies():List<Result>{
+        var searchData = listOf<Result>()
+        withContext(Dispatchers.IO){
+            try {
+                val allSearched =  api.getSearchedMoviesAsync(key = MyRetrofitBuilder.API_KEY).await()
+                    .results
+                searchData = allSearched
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+        return searchData
+    }
+
 }

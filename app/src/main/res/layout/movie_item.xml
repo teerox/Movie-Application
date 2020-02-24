@@ -52,6 +52,15 @@
                     android:layout_gravity="end"
                     android:src="@drawable/ic_favorite_black_24dp"
                     android:textSize="@dimen/songs_count" />
+<!--                <CheckBox-->
+<!--                    android:id="@+id/likeIcon"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:button="@null"-->
+<!--                    android:checked="false" -->
+<!--                    android:stateListAnimator="@animator/scale"-->
+<!--                    android:background="@drawable/like"-->
+<!--                />-->
 
                 <TextView
                     android:id="@+id/textView"
@@ -75,14 +84,23 @@
                     android:paddingLeft="@dimen/album_title_padding"
                     android:paddingRight="@dimen/album_title_padding"
                     android:textSize="@dimen/songs_count" />
-
+                <RatingBar
+                    android:id="@+id/move_item_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:layout_margin="4dp"
+                    android:progressBackgroundTint="@android:color/white"
+                    style="@android:style/Widget.Holo.RatingBar.Small"
+                    android:progressTint="@color/colorAccent"
+                    tools:rating="1"
+                    android:stepSize="0.5"/>
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView2"
                     android:textColor="@color/colorPrimary"
-                    android:text="@{Double.toString(myMovie.voteAverage)}"
                     android:paddingBottom="@dimen/songs_count_padding_bottom"
                     android:paddingLeft="@dimen/album_title_padding"
                     android:paddingRight="@dimen/album_title_padding"

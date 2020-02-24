@@ -19,9 +19,7 @@ class FavouriteViewModel(application: Application) :AndroidViewModel(application
 
     private var movieRepository = ApiMovieRepository
     private var roomDatabaseRepository = RoomDatabaseRepository(application)
-
     private val viewModelJob = Job()
-
     private val viewModeScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 

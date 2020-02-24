@@ -1,36 +1,40 @@
 package com.example.movieapp.screens.viewpage
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
 import com.example.movieapp.R
+import com.example.movieapp.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        val navController = this.findNavController(R.id.navHost)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+        navController = this.findNavController(R.id.navHost)
         NavigationUI.setupActionBarWithNavController(this, navController)
-        NavigationUI.setupWithNavController(toolbar,navController)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.navHost)
-        return navController.navigateUp()
-    }
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.overflow_menu,menu)
-        return true
     }
 
 

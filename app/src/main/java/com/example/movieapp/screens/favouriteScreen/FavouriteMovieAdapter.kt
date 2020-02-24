@@ -1,5 +1,6 @@
 package com.example.movieapp.screens.favouriteScreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +10,11 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.ListLayoutFavouriteBinding
 import com.example.movieapp.model.api.MyRetrofitBuilder
 import com.example.movieapp.model.database.Movie
+import com.example.movieapp.model.database.Result
+import com.example.movieapp.utils.Utils
 
-class FavouriteMovieAdapter(val context: Context):
-
-
-    RecyclerView.Adapter<FavouriteMovieAdapter.ViewHolder>() {
+class FavouriteMovieAdapter(val context: Context, private val clickListerner: (result: Movie) -> Unit): RecyclerView.Adapter<FavouriteMovieAdapter.ViewHolder>()
+{
     var movieArray = arrayListOf<Movie>()
 
 
@@ -27,10 +28,22 @@ class FavouriteMovieAdapter(val context: Context):
         return movieArray.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movieArray[position])
 
-    class ViewHolder(var binding: ListLayoutFavouriteBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Movie){
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movieArray[position], clickListerner)
+
+
+
+    class ViewHolder(var binding: ListLayoutFavouriteBinding):
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bind(item: Movie, clickListerner: (result: Movie) -> Unit) {
+            val rating = Utils().rating(item.movieRating.toDouble())
+            binding.favouriteItemRating.rating = rating
+            binding.textView3.text = "Rating: $rating/5"
+            binding.root.setOnClickListener {
+                clickListerner(item)
+
+            }
 
             binding.ImageView2.setImageResource(R.drawable.ic_favorite_black_24dp)
             binding.myfavMovie = item

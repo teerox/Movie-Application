@@ -5,35 +5,36 @@
     android:id="@+id/nav"
     app:startDestination="@id/movieFragment">
 
-<!--    <activity-->
-<!--        android:id="@+id/mainActivity"-->
-<!--        android:name="com.example.movieapp.screens.viewpage.MainActivity"-->
-<!--        android:label="activity_main"-->
-<!--        tools:layout="@layout/activity_main" />-->
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.example.movieapp.screens.viewpage.FragmentMain"
-        android:label="FragmentMain"
+        android:label="Movies"
         tools:layout="@layout/movie_fragment"
-        >
+        app:startDestination="@id/action_movieFragment_to_SingleMovieFragment">
         <action
             android:id="@+id/action_movieFragment_to_SingleMovieFragment"
             app:destination="@id/SingleMovieFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/favouriteScreenFragment"
-        android:name="com.example.movieapp.screens.favouriteScreen.FavouriteScreenFragment"
-        android:label="FavouriteScreenFragment"
-        tools:layout="@layout/favourite_fragment"
-        />
 
+        <action
+            android:id="@+id/action_movieFragment_to_singleFavouriteFragment"
+            app:destination="@id/singleFavouriteFragment" />
+    </fragment>
         <fragment
             android:id="@+id/SingleMovieFragment"
             android:name="com.example.movieapp.screens.singleScreen.SingleMovieFragment"
-            android:label="SingleMovieFragment"
+            android:label="Movies"
             tools:layout="@layout/single_movie_fragment">
             <argument
                 android:name="singlemovie"
                 app:argType="com.example.movieapp.model.database.Result" />
         </fragment>
+    <fragment
+        android:id="@+id/singleFavouriteFragment"
+        android:name="com.example.movieapp.screens.singleFavouriteScreen.SingleFavouriteFragment"
+        tools:layout="@layout/favourite_single_fragment"
+        android:label="Movies" >
+        <argument
+            android:name="sinMoves"
+            app:argType="com.example.movieapp.model.database.Movie" />
+    </fragment>
 </navigation>

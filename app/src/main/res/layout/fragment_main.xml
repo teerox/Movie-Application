@@ -4,6 +4,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+<!--        />-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         app:tabIndicatorColor="@color/colorAccent"

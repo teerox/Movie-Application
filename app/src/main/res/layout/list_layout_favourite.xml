@@ -33,10 +33,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/album_cover_height"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
                     android:src="@drawable/banner33_2x"
                     android:scaleType="fitXY"
-                    android:focusable="true" />
+                    />
 
                 <ImageView
                     android:id="@+id/ImageView2"
@@ -66,13 +65,22 @@
                     android:paddingLeft="@dimen/album_title_padding"
                     android:paddingRight="@dimen/album_title_padding"
                     android:textSize="@dimen/songs_count" />
-
+                <RatingBar
+                    android:id="@+id/favourite_item_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:layout_margin="4dp"
+                    android:progressBackgroundTint="@android:color/white"
+                    style="@android:style/Widget.Holo.RatingBar.Small"
+                    android:progressTint="@color/colorAccent"
+                    tools:rating="1"
+                    android:stepSize="0.5"/>
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
-                    android:text="@{myfavMovie.movieRating}"
                     android:paddingBottom="@dimen/songs_count_padding_bottom"
                     android:paddingLeft="@dimen/album_title_padding"
                     android:paddingRight="@dimen/album_title_padding"

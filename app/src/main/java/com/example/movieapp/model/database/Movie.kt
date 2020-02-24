@@ -17,7 +17,13 @@ data class Movie(
     @ColumnInfo(name = "movieReleaseDate")
     var movieReleaseDate:String,
     @ColumnInfo(name = "movieImage")
-    var movieImage:String
+    var movieImage:String,
+    @ColumnInfo(name = "movieOverview")
+    var movieOverview:String,
+    @ColumnInfo(name = "backdropImg")
+    var backdropImg:String,
+    @ColumnInfo(name = "isFavourite")
+    var isFavourite:Boolean
 
 ): Parcelable
 {

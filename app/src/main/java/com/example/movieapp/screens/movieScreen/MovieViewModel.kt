@@ -1,6 +1,9 @@
 package com.example.movieapp.screens.movieScreen
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.movieapp.model.database.Movie
@@ -24,6 +27,10 @@ class MovieViewModel(application: Application) :AndroidViewModel(application){
     val allMovies
         get() = _allMovies
 
+    private var _searchMovies = MutableLiveData<List<Result>>()
+    val searchMovies
+        get() = _searchMovies
+
 
     init {
         viewModeScope.launch {
@@ -35,8 +42,14 @@ class MovieViewModel(application: Application) :AndroidViewModel(application){
         }
     }
 
-    fun getAll(){
-        roomDatabaseRepository.getAll()
+    init {
+        viewModeScope.launch {
+            try {
+                _searchMovies.value = movieRepository.searchAllMovies()
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
     }
 
     fun insert(movie: Movie){
@@ -51,6 +64,13 @@ class MovieViewModel(application: Application) :AndroidViewModel(application){
         return movie.map {
             it.isFavourite = roomDatabaseRepository.isfavourite(it.id)
             it
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun search(resultArrayList: List<Result>, searchItem:String):List<Result>{
+        return resultArrayList.filter { it ->
+            it.title.contains(searchItem.toLowerCase().trim{ char -> char <= ' ' },true)
         }
     }
 }
