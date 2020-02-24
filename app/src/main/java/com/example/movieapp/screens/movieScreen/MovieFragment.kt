@@ -74,7 +74,8 @@ class MovieFragment : Fragment() {
                 }
 
                 recyclerView.adapter = adapter
-                binding.editsearchText.doOnTextChanged { _, _, _, _ ->
+
+                binding.editsearchText.doOnTextChanged { _: CharSequence?, _: Int, _: Int, _: Int ->
                     val search = viewModel.search(list,binding.editsearchText.text.toString())
                       adapter = MovieAdapter(context!!,viewModel, search as ArrayList<Result>) {}
                     recyclerView.adapter = adapter
