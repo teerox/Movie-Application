@@ -7,7 +7,7 @@
     <data>
         <variable
             name="myfavMovie"
-            type="com.example.movieapp.model.database.Movie" />
+            type="com.example.movieapp.model.database.Result" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:textSize="@dimen/songs_count" />
                 <TextView
                     android:id="@+id/textView"
-                    android:text="@{myfavMovie.movieName}"
+                    android:text="@{myfavMovie.title}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/album_title_padding"
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{myfavMovie.movieReleaseDate}"
+                    android:text="@{myfavMovie.releaseDate}"
                     android:textColor="@color/colorPrimary"
                     android:paddingBottom="@dimen/songs_count_padding_bottom"
                     android:paddingLeft="@dimen/album_title_padding"
