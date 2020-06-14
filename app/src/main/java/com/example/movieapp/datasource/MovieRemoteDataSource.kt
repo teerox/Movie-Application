@@ -1,32 +1,24 @@
 package com.example.movieapp.datasource
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.movieapp.api.MyRetrofitBuilder
-import com.example.movieapp.model.ResultMv
-import com.example.movieapp.model.Result
-import kotlinx.coroutines.CoroutineDispatcher
+import com.example.movieapp.api.ApiService
+
+
+import com.example.movieapp.model.MovieResult
+import com.example.movieapp.model.VideoResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Error
+import javax.inject.Inject
 
-class MovieRemoteDataSource internal constructor(private var ioDispatcher: CoroutineDispatcher = Dispatchers.IO):
-    MovieDataSource<Result> {
-
-    private val apiService = MyRetrofitBuilder.provideMovieApi()
-    private val observableMovies = MutableLiveData<List<Result>>()
+class MovieRemoteDataSource @Inject constructor(private val apiService: ApiService): MovieDataSource<MovieResult> {
 
 
-    override fun getLocal(): LiveData<List<Result>> {
-       return observableMovies
-    }
-
-    override suspend fun getAll(): List<Result>? {
-        var data = listOf<Result>()
-        withContext(ioDispatcher){
+    override suspend fun getAllPopularMovies(pageNo:Int): List<MovieResult>? {
+        var data = listOf<MovieResult>()
+        withContext(Dispatchers.IO){
             try {
-                val allmovie = apiService.getAllmoviesAsync().await().results
-                data = allmovie
+                 data = apiService.getAllPopularMoviesAsync(page = pageNo).await().results
+
             }catch (e: Error){
                 e.printStackTrace()
             }
@@ -34,28 +26,66 @@ class MovieRemoteDataSource internal constructor(private var ioDispatcher: Corou
         return data.toList()
     }
 
-    override suspend fun save(item: Result) {
-
-    }
-
-    override suspend fun deleteAll() {
-
-    }
-
-    override suspend fun delete(item: Long) {
-
-    }
-
-    override suspend fun getfav(id: Long): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    suspend fun getVideo(movie: Result): List<ResultMv> {
-        val apiService2 = MyRetrofitBuilder.provideMovieApi2(movie)
-        var response = listOf<ResultMv>()
-        withContext(ioDispatcher) {
+    override suspend fun getAllTopRatedMovies(pageNo: Int): List<MovieResult>? {
+        var data = listOf<MovieResult>()
+        withContext(Dispatchers.IO){
             try {
-                val videos = apiService2.getVideosAsyn().await().results
+                data = apiService.getAllTopRatedMoviesAsync(page = pageNo).await().results
+
+            }catch (e: Error){
+                e.printStackTrace()
+            }
+        }
+        return data.toList()
+    }
+
+    override suspend fun getAllUpcomingMovies(pageNo: Int): List<MovieResult>? {
+        var data = listOf<MovieResult>()
+        withContext(Dispatchers.IO){
+            try {
+                data = apiService.getAllUpcomingMoviesAsync(page = pageNo).await().results
+
+            }catch (e: Error){
+                e.printStackTrace()
+            }
+        }
+        return data.toList()
+    }
+
+    override suspend fun getAllNowPlayingMovie(pageNo: Int): List<MovieResult>? {
+        var data = listOf<MovieResult>()
+        withContext(Dispatchers.IO){
+            try {
+                data = apiService.getAllNowPlayingMoviesAsync(page = pageNo).await().results
+
+            }catch (e: Error){
+                e.printStackTrace()
+            }
+        }
+        return data.toList()
+    }
+
+    override suspend fun getSearchedMovies(
+        pageNo: Int,
+        searchParameter: String
+    ): List<MovieResult>? {
+        var data = listOf<MovieResult>()
+        withContext(Dispatchers.IO){
+            try {
+                data = apiService.getSearchedMoviesAsync(page = pageNo,searchParameter = searchParameter).await().results
+
+            }catch (e: Error){
+                e.printStackTrace()
+            }
+        }
+        return data.toList()
+    }
+
+    override suspend fun getAllVideos(movie: MovieResult): List<VideoResult>? {
+        var response = listOf<VideoResult>()
+        withContext(Dispatchers.IO) {
+            try {
+                val videos = apiService.getVideosAsync(movieId = movie.id).await().results
                 response = videos
             } catch (e: Error) {
                 e.printStackTrace()
@@ -63,4 +93,6 @@ class MovieRemoteDataSource internal constructor(private var ioDispatcher: Corou
         }
         return response.toList()
     }
+
+
 }

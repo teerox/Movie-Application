@@ -33,21 +33,3 @@ object Utils {
     }
 }
 
-//use total_pages
-//popular 500pages
-//https://api.themoviedb.org/3/movie/popular?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US&page=1
-
-//top rated 371pages
-//https://api.themoviedb.org/3/movie/top_rated?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US&page=1
-
-//upcoming
-//https://api.themoviedb.org/3/movie/upcoming?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US&page=1
-
-//now playing
-//https://api.themoviedb.org/3/movie/now_playing?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US&page=1
-
-//search
-//https://api.themoviedb.org/3/search/movie?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US&query=moviename
-
-//trailer movie
-// "https://api.themoviedb.org/3/movie/${movie.uid}/videos?api_key=fb97e27952573c39dd8c56b40023750e&language=en-US"
