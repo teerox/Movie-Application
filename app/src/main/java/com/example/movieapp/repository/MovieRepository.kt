@@ -3,7 +3,7 @@ package com.example.movieapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.movieapp.model.Result
-import com.example.movieapp.di.ResultMv
+import com.example.movieapp.model.ResultMv
 
 interface MovieRepository{
 

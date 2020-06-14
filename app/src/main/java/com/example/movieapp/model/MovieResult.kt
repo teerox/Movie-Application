@@ -4,74 +4,39 @@ package com.example.movieapp.model
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-data class MovieFeeds (
-    val page: Long,
-
-    @SerializedName("total_results")
-    val totalResults: Long,
-
-    @SerializedName("total_pages")
-    val totalPages: Long,
-
-    val results: List<Result>
-):Parcelable
-
 
 @Parcelize
-data class MovieResult (
-    val id: String,
-
-    @SerializedName("iso_639_1")
-    val iso639_1: String,
-
-    @SerializedName("iso_3166_1")
-    val iso3166_1: String,
-
-    val key: String,
-    val name: String,
-    val site: String,
-    val size: Long,
-    val type: String
+data class Movie(
+    val page: Int,
+    val results: List<MovieResult>,
+    val total_pages: Int,
+    val total_results: Int
 ):Parcelable
 
 @Parcelize
-@Entity(tableName = "favouritemovies")
-data class Result (
-
-    @SerializedName("poster_path")
-    val posterPath: String,
-
-
-    @SerializedName("backdrop_path")
-    val backdropPath: String?,
-
-    @ColumnInfo(name = "movieName")
-    val title: String,
-
-    @SerializedName("vote_average")
-    val voteAverage: Double,
-
+@Entity(tableName = "favouriteMovies")
+data class MovieResult(
+    val adult: Boolean,
+    val backdrop_path: String,
+    val genre_ids: List<Int>,
+    val id: Int,
+    val original_language: String,
+    val original_title: String,
     @ColumnInfo(name = "overview")
     val overview: String,
-
+    val popularity: Double,
+    val poster_path: String,
     @ColumnInfo
-    @SerializedName("release_date")
-    val releaseDate: String,
-
-
+    val release_date: String,
+    @ColumnInfo(name = "movieName")
+    val title: String,
+    val video: Boolean,
+    val vote_average: Double,
+    val vote_count: Int,
     @ColumnInfo(name = "isFavourite")
-    var isFavourite:Boolean,
-
-    @SerializedName("id")
-    @PrimaryKey()var uid:Long
-
-
-):Parcelable{
-
-}
-
+    var isFavourite:Boolean
+): Parcelable

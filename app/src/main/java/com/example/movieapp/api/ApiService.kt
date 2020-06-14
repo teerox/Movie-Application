@@ -2,7 +2,7 @@ package com.example.movieapp.api
 
 
 import com.example.movieapp.model.MovieFeeds
-import com.example.movieapp.di.WelcomeMv
+import com.example.movieapp.model.WelcomeMv
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -24,5 +24,8 @@ fun getAllmoviesAsync(@Query("sort_by") filter :String = "popularity.desc",
     @GET("videos")
      fun getVideosAsyn(@Query("api_key") api:String = MyRetrofitBuilder.API_KEY,
                    @Query("language") language:String = "en-US"): Deferred<WelcomeMv>
+
+
+
 }
 

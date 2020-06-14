@@ -2,9 +2,9 @@ package com.example.movieapp.repository
 
 import androidx.lifecycle.LiveData
 import com.example.movieapp.model.Result
-import com.example.movieapp.di.ResultMv
+import com.example.movieapp.model.ResultMv
 import com.example.movieapp.datasource.MovieLocalDataSource
-import com.example.movieapp.di.MovieRemoteDataSource
+import com.example.movieapp.datasource.MovieRemoteDataSource
 import kotlinx.coroutines.*
 
 
