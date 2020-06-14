@@ -7,7 +7,7 @@
     <data>
         <variable
             name="singlefavourite"
-            type="com.example.movieapp.model.database.Movie" />
+            type="com.example.movieapp.model.database.Result" />
     </data>
 
     <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     tools:text="Hello there"
                     android:layout_margin="4dp"
-                    android:text="@{singlefavourite.movieName}" />
+                    android:text="@{singlefavourite.title}" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -63,7 +63,7 @@
                 android:layout_margin="4dp"
                 android:textColor="@color/colorPrimary"
                 tools:text="Hello you there"
-                android:text="@{singlefavourite.movieOverview}" />
+                android:text="@{singlefavourite.overview}" />
             <RatingBar
                 android:id="@+id/favouriteRatingBar4"
                 android:layout_width="wrap_content"

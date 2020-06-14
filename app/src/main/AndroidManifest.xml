@@ -3,19 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.movieapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher2"
+        android:name=".MyApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".screens.viewpage.SplashActivity"
+        <activity android:name=".screens.main.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +25,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".screens.viewpage.MainActivity">
-
-        </activity>
+        <activity android:name=".screens.main.MainActivity"/>
+        <activity android:name=".screens.movie.moviesinglescreen.SingleScreenActivity" />
     </application>
 
 </manifest>
