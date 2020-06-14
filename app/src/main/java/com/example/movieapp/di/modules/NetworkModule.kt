@@ -3,7 +3,6 @@ package com.example.movieapp.di.modules
 import android.content.Context
 import com.example.movieapp.MyApplication
 import com.example.movieapp.api.ApiService
-import com.example.movieapp.model.MovieResult
 import com.example.movieapp.utils.Utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -12,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule(private val application: MyApplication,private val movieId:MovieResult) {
+class NetworkModule(private val application: MyApplication) {
 
     @Provides
     fun context(): Context {

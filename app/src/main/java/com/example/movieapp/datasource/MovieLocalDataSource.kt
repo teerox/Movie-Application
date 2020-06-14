@@ -2,9 +2,7 @@ package com.example.movieapp.datasource
 
 import androidx.lifecycle.LiveData
 import com.example.movieapp.database.MovieDAO
-import com.example.movieapp.model.Movie
 import com.example.movieapp.model.MovieResult
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -2,28 +2,36 @@ package com.example.movieapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.movieapp.model.Result
-import com.example.movieapp.model.ResultMv
+import com.example.movieapp.model.MovieResult
+import com.example.movieapp.model.VideoResult
 
-interface MovieRepository{
+interface MovieRepository<T>{
 
-    suspend fun getMovies(): List<Result>?{
-        return listOf()
-    }
+    fun getLocal(): LiveData<List<T>>
 
-    suspend fun saveMovie(movie: Result)
+    suspend fun getAllPopularMovies(pageNo:Int): List<T>?
 
-    suspend fun deleteMovie(movieId: Long){
-        TODO("not Implemented")
-    }
 
-    fun getFavouriteMovies(): LiveData<List<Result>>{
-        var go = MutableLiveData<List<Result>>()
-        return go
-    }
+    suspend fun getAllTopRatedMovies(pageNo:Int): List<T>?
 
-    suspend fun isfavourite(id:Long):Boolean
 
-    suspend fun getVideos(movie: Result):List<ResultMv>
+    suspend fun getAllUpcomingMovies(pageNo:Int): List<T>?
 
+
+    suspend fun getAllNowPlayingMovie(pageNo:Int): List<T>?
+
+
+    suspend fun getSearchedMovies(pageNo:Int,searchParameter:String): List<T>?
+
+
+    suspend fun getAllVideos(movie: MovieResult): List<VideoResult>?
+
+
+    suspend fun saveMovie(item: T)
+
+
+    suspend fun deleteMovie(item: Long)
+
+
+    suspend fun isFavourite(id:Long):Boolean
 }
