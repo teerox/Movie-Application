@@ -5,19 +5,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.movieapp.model.Movie
+import com.example.movieapp.model.MovieResult
 
 
 @Dao
 interface MovieDAO {
     @Query("SELECT * FROM favouriteMovies ORDER BY uid DESC")
-    fun getAll():LiveData<List<Result>>
+    fun getAll():LiveData<List<MovieResult>>
 
     @Query("SELECT * FROM favouriteMovies WHERE uid IN (:movieId)")
-    fun isFavourite(movieId: Long): List<Result>
+    fun isFavourite(movieId: Long): List<MovieResult>
 
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg movie: Result)
+    fun insertAll(vararg movie: MovieResult)
 
     @Query("DELETE FROM favouriteMovies WHERE uid = :movieId")
     fun deleteMovieById(movieId: Long): Int
