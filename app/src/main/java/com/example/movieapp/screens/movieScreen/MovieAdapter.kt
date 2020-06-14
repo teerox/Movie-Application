@@ -2,21 +2,20 @@ package com.example.movieapp.screens.movieScreen
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.MovieItemBinding
-import com.example.movieapp.model.api.MyRetrofitBuilder
-import com.example.movieapp.model.database.Movie
-import com.example.movieapp.model.database.Result
+import com.example.movieapp.api.MyRetrofitBuilder
+import com.example.movieapp.model.Result
 import com.example.movieapp.utils.Utils
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MovieAdapter(
@@ -38,7 +37,7 @@ class MovieAdapter(
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movieArray[position], clickListerner)
 
-    class ViewHolder(var binding: MovieItemBinding, var viewModel: MovieViewModel) :
+    class ViewHolder(var binding: MovieItemBinding, var viewModel:MovieViewModel ) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: Result, clickListerner: (result: Result) -> Unit) {
@@ -49,7 +48,16 @@ class MovieAdapter(
                 clickListerner(item)
             }
             val movie =
-                Movie(item.title, item.voteAverage.toString(), item.releaseDate, item.posterPath,item.overview,item.backdropPath,item.isFavourite)
+                Result(
+                    item.posterPath,
+                    item.backdropPath,
+                    item.title,
+                    item.voteAverage,
+                    item.overview,
+                    item.releaseDate,
+                    item.isFavourite,
+                    item.uid
+                )
             if (!item.isFavourite) {
                 binding.ImageView2.visibility = View.VISIBLE
                 binding.ImageView3.visibility = View.GONE
@@ -57,35 +65,20 @@ class MovieAdapter(
                 binding.ImageView2.visibility = View.GONE
                 binding.ImageView3.visibility = View.VISIBLE
             }
-            movie.uid = item.id
-            binding.ImageView2.setOnClickListener {
-                if (!item.isFavourite) {
-                    item.isFavourite = true
-                    binding.ImageView2.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    viewModel.insert(movie)
-                    Snackbar.make(it, "Movie Added to Favourites", Snackbar.LENGTH_LONG).show()
-                } else {
-                    item.isFavourite = false
-                    binding.ImageView2.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                    viewModel.delete(movie.uid)
-                    Snackbar.make(it, "Movie Removed from Favourites", Snackbar.LENGTH_LONG).show()
-                }
-                Log.e("Moviess", movie.toString())
-            }
-            binding.ImageView3.setOnClickListener {
-                if (item.isFavourite) {
-                    item.isFavourite = false
-                    viewModel.delete(movie.uid)
-                    binding.ImageView3.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                    Snackbar.make(it, "Movie Removed from Favourites", Snackbar.LENGTH_LONG).show()
-                } else {
-                    item.isFavourite = true
-                    viewModel.insert(movie)
-                    binding.ImageView2.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    Snackbar.make(it, "Movie Removed from Favourites", Snackbar.LENGTH_LONG).show()
-                }
+            movie.uid = item.uid
 
+            binding.ImageView2.setOnClickListener {
+                GlobalScope.launch(Dispatchers.Main){
+                    viewModel.like(item,it as ImageView)
+                }
             }
+
+            binding.ImageView3.setOnClickListener {
+                GlobalScope.launch(Dispatchers.Main) {
+                    viewModel.unLike(item,it as ImageView)
+                }
+            }
+
 
             binding.myMovie = item
             val img = MyRetrofitBuilder.IMAGE_BASE_URL + "original" + item.posterPath
@@ -94,53 +87,5 @@ class MovieAdapter(
         }
     }
 
-
-
-
-
-//    override fun getFilter(): Filter {
-//        return object : Filter() {
-//            override fun performFiltering(constraint: CharSequence?): FilterResults {
-//                val searchString: String = constraint.toString()
-//
-//                if (searchString.isEmpty()) {
-//                 filteredUserList = movieArray
-//
-//                } else {
-//                    val tempFilteredList= ArrayList<Result>()
-//                    for (user in movieArray) { // search for user title
-//                        if (user.title.toLowerCase().contains(searchString.toLowerCase())) {
-//                            tempFilteredList.add(user)
-//                        }
-//                        movieArray = tempFilteredList
-//                    }
-//
-//                    filteredUserList = tempFilteredList
-//                    //movieArray.clear()
-//                    movieArray.addAll(movieArray)
-//                   //
-//                   // movieArray.addAll(filteredUserList!!)
-////                    filteredUserList = movieArray
-//                    Log.e("adaaptter222", filteredUserList.toString())
-//                }
-//                val filterResults = FilterResults()
-//                filterResults.values = filteredUserList
-//                return filterResults
-//            }
-//
-//            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-//                if (results != null) {
-//                    filteredUserList = results.values as ArrayList<Result>?
-//                    // movieArray.clear()
-//                    // movieArray.addAll(movieArray2)
-//                    notifyDataSetChanged()
-//                    // Log.e("adaaptter",filteredUserList .toString())
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
 
 }

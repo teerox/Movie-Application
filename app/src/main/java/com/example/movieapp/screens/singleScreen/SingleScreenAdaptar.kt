@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ListLayoutImageBinding
-import com.example.movieapp.model.api.MyRetrofitBuilder
-import com.example.movieapp.model.database.Result
+import com.example.movieapp.api.MyRetrofitBuilder
+import com.example.movieapp.model.Result
 
 class SingleScreenAdaptar (var context: Context, private var movieArray:ArrayList<Result>):
     RecyclerView.Adapter<SingleScreenAdaptar.ViewHolder>() {

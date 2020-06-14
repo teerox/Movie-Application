@@ -10,24 +10,24 @@
         android:name="com.example.movieapp.screens.viewpage.FragmentMain"
         android:label="Movies"
         tools:layout="@layout/movie_fragment"
-        app:startDestination="@id/action_movieFragment_to_SingleMovieFragment">
-        <action
-            android:id="@+id/action_movieFragment_to_SingleMovieFragment"
-            app:destination="@id/SingleMovieFragment" />
+        app:startDestination="@id/action_movieFragment_to_singleScreenActivity">
 
         <action
             android:id="@+id/action_movieFragment_to_singleFavouriteFragment"
             app:destination="@id/singleFavouriteFragment" />
+        <action
+            android:id="@+id/action_movieFragment_to_singleScreenActivity"
+            app:destination="@id/singleScreenActivity" />
     </fragment>
-        <fragment
-            android:id="@+id/SingleMovieFragment"
-            android:name="com.example.movieapp.screens.singleScreen.SingleMovieFragment"
-            android:label="Movies"
-            tools:layout="@layout/single_movie_fragment">
-            <argument
-                android:name="singlemovie"
-                app:argType="com.example.movieapp.model.database.Result" />
-        </fragment>
+<!--        <fragment-->
+<!--            android:id="@+id/SingleMovieFragment"-->
+<!--            android:name="com.example.movieapp.screens.singleScreen.SingleMovieFragment"-->
+<!--            android:label="Movies"-->
+<!--            tools:layout="@layout/single_movie_fragment">-->
+<!--            <argument-->
+<!--                android:name="singlemovie"-->
+<!--                app:argType="com.example.movieapp.model.Result" />-->
+<!--        </fragment>-->
     <fragment
         android:id="@+id/singleFavouriteFragment"
         android:name="com.example.movieapp.screens.singleFavouriteScreen.SingleFavouriteFragment"
@@ -35,6 +35,16 @@
         android:label="Movies" >
         <argument
             android:name="sinMoves"
-            app:argType="com.example.movieapp.model.database.Movie" />
+            app:argType="com.example.movieapp.model.database.Result" />
     </fragment>
+    <activity
+        android:id="@+id/singleScreenActivity"
+        android:name="com.example.movieapp.screens.singleScreen.SingleScreenActivity"
+        android:label="SingleScreenActivity"
+        tools:layout="@layout/single_movie_fragment"
+        >
+        <argument
+            android:name="singleMoviesVideos"
+            app:argType="com.example.movieapp.model.database.Result" />
+    </activity>
 </navigation>
