@@ -1,46 +1,36 @@
 package com.example.movieapp.screens.favourite.favouriteviewmodel
 
+import android.widget.ImageView
 import androidx.lifecycle.*
-import com.example.movieapp.model.Result
-import com.example.movieapp.repository.MovieRepository
+import com.example.movieapp.R
+import com.example.movieapp.model.MovieResult
+import com.example.movieapp.repository.DefaultMoviesRepository
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 
-//
-//class FavouriteViewModel(application: Application) :AndroidViewModel(application) {
-//
-//    private var movieRepository = ApiMovieRepository
-//    private var roomDatabaseRepository = RoomDatabaseRepository(application)
-//    private val viewModelJob = Job()
-//    private val viewModeScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-//
-//
-//    private var _allMovies = MutableLiveData<List<Result>>()
-//    val allMovies
-//        get() = _allMovies
-//
-//
-//    init {
-//        viewModeScope.launch {
-//            try {
-//                _allMovies.value = movieRepository.getAllMovies()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-//
-//    var allFavourite = roomDatabaseRepository.getAll()
-//    fun insert(movie: Result) {
-//        roomDatabaseRepository.addMovietoDb(movie)
-//    }
-//
-//    fun delete(id: Long) {
-//        roomDatabaseRepository.delete(id)
-//    }
-//}
+class favouriteViewModel @Inject constructor(private val movieRepository: DefaultMoviesRepository){
 
-class favouriteViewMod(var movieRepository: MovieRepository):ViewModel(){
-
-    fun getallMovies():LiveData<List<Result>>?{
-        return movieRepository.getFavouriteMovies()
+    fun getAllLocalMovies():LiveData<List<MovieResult>>?{
+        return movieRepository.getLocal()
     }
+
+
+    suspend fun unLike(item: MovieResult, view: ImageView){
+        if (item.isFavourite) {
+            item.isFavourite = false
+            coroutineScope {
+                movieRepository.deleteMovie(item.id)
+            }
+            view.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+            Snackbar.make(view, "Movie Removed from Favourites", Snackbar.LENGTH_LONG).show()
+        } else {
+            item.isFavourite = true
+            coroutineScope { movieRepository.saveMovie(item) }
+            view.setImageResource(R.drawable.ic_favorite_black_24dp)
+            Snackbar.make(view, "Movie Removed from Favourites", Snackbar.LENGTH_LONG).show()
+        }
+
+    }
+
 }

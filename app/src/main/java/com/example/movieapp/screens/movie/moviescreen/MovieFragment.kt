@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieapp.MovieApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.MovieFragmentBinding
-import com.example.movieapp.model.Result
 import com.example.movieapp.screens.main.FragmentMainDirections
 import com.example.movieapp.screens.movie.movieviewmodel.MovieViewModel
 import com.example.movieapp.screens.movie.movieviewmodel.MovieViewModelFactory

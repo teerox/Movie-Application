@@ -1,7 +1,6 @@
 package com.example.movieapp.datasource
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.movieapp.model.MovieResult
 import com.example.movieapp.model.VideoResult
 import retrofit2.Call
@@ -45,11 +44,11 @@ interface MovieDataSource<T> {
 
     }
 
-    suspend fun delete(item: Long){
+    suspend fun delete(item: Int){
 
     }
 
-    suspend fun getFavourite(id:Long):Boolean{
+    suspend fun getFavourite(id: Int):Boolean{
         return false
     }
 

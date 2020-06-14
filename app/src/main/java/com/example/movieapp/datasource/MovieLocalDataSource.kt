@@ -18,11 +18,11 @@ class MovieLocalDataSource @Inject constructor (private val movieDAO: MovieDAO):
     }
 
 
-    override suspend fun delete(item: Long) {
+    override suspend fun delete(item: Int) {
        movieDAO.deleteMovieById(item)
     }
 
-    override suspend fun getFavourite(id:Long) :Boolean {
+    override suspend fun getFavourite(id: Int) :Boolean {
         return withContext(Dispatchers.IO) {
             movieDAO.isFavourite(id).isNotEmpty()
         }

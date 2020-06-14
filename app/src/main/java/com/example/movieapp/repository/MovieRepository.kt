@@ -9,29 +9,29 @@ interface MovieRepository<T>{
 
     fun getLocal(): LiveData<List<MovieResult>>
 
-    suspend fun getAllPopularMovies(pageNo:Int): MutableLiveData<T>?
+    fun getAllPopularMovies(pageNo:Int): MutableLiveData<T>?
 
 
-    suspend fun getAllTopRatedMovies(pageNo:Int): MutableLiveData<T>?
+    fun getAllTopRatedMovies(pageNo:Int): MutableLiveData<T>?
 
 
-    suspend fun getAllUpcomingMovies(pageNo:Int): MutableLiveData<T>?
+    fun getAllUpcomingMovies(pageNo:Int): MutableLiveData<T>?
 
 
-    suspend fun getAllNowPlayingMovie(pageNo:Int): MutableLiveData<T>?
+    fun getAllNowPlayingMovie(pageNo:Int): MutableLiveData<T>?
 
 
-    suspend fun getSearchedMovies(pageNo:Int,searchParameter:String): MutableLiveData<T>?
+    fun getSearchedMovies(pageNo:Int,searchParameter:String): MutableLiveData<T>?
 
 
-    suspend fun getAllVideos(movie: MovieResult): MutableLiveData<VideoResult>?
+    fun getAllVideos(movie: MovieResult): MutableLiveData<VideoResult>?
 
 
     suspend fun saveMovie(item: MovieResult)
 
 
-    suspend fun deleteMovie(item: Long)
+    suspend fun deleteMovie(item: Int)
 
 
-    suspend fun isFavourite(id:Long):Boolean
+    suspend fun isFavourite(id: Int):Boolean
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject
 class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSource: MovieLocalDataSource,
                                private val tasksRemoteDataSource: MovieRemoteDataSource):MovieRepository<Movie> {
 
-    override suspend fun deleteMovie(item: Long) {
+    override suspend fun deleteMovie(item: Int) {
         withContext(Dispatchers.IO) {
             coroutineScope {
                 launch { taskLocalDataSource.delete(item) }
@@ -39,13 +39,13 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
 
 
 
-    override suspend fun isFavourite(id: Long): Boolean {
+    override suspend fun isFavourite(id: Int): Boolean {
        return taskLocalDataSource.getFavourite(id)
     }
 
 
 
-    override suspend fun getAllPopularMovies(pageNo: Int): MutableLiveData<Movie>? {
+    override fun getAllPopularMovies(pageNo: Int): MutableLiveData<Movie>? {
         val popularMovies:MutableLiveData<Movie>? = MutableLiveData()
         try {
             val data = tasksRemoteDataSource.getAllPopularMovies(pageNo)
@@ -74,7 +74,7 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
 
 
 
-    override suspend fun getAllTopRatedMovies(pageNo: Int): MutableLiveData<Movie>? {
+    override fun getAllTopRatedMovies(pageNo: Int): MutableLiveData<Movie>? {
         val allTopRatedMovies:MutableLiveData<Movie>? = MutableLiveData()
         try {
             val data = tasksRemoteDataSource.getAllTopRatedMovies(pageNo)
@@ -103,7 +103,7 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
 
 
 
-    override suspend fun getAllUpcomingMovies(pageNo: Int): MutableLiveData<Movie>? {
+    override fun getAllUpcomingMovies(pageNo: Int): MutableLiveData<Movie>? {
         val allUpcomingMovies:MutableLiveData<Movie>? = MutableLiveData()
         try {
             val data = tasksRemoteDataSource.getAllUpcomingMovies(pageNo)
@@ -131,7 +131,7 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
 
 
 
-    override suspend fun getAllNowPlayingMovie(pageNo: Int): MutableLiveData<Movie>? {
+    override fun getAllNowPlayingMovie(pageNo: Int): MutableLiveData<Movie>? {
 
         val allNowPlayingMovie:MutableLiveData<Movie>? = MutableLiveData()
         try {
@@ -160,7 +160,7 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
     }
 
 
-    override suspend fun getSearchedMovies(
+    override fun getSearchedMovies(
         pageNo: Int,
         searchParameter: String
     ): MutableLiveData<Movie>? {
@@ -192,7 +192,7 @@ class DefaultMoviesRepository @Inject constructor (private var taskLocalDataSour
 
 
 
-    override suspend fun getAllVideos(movie: MovieResult): MutableLiveData<VideoResult>? {
+    override fun getAllVideos(movie: MovieResult): MutableLiveData<VideoResult>? {
         val allVideos:MutableLiveData<VideoResult>? = MutableLiveData()
         try {
             val data = tasksRemoteDataSource.getAllVideos(movie)

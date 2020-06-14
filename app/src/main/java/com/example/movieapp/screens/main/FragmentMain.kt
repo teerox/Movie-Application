@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class FragmentMain:Fragment(){
     private lateinit var viewPageAdaptar: ViewPageAdaptar
-    lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater,
